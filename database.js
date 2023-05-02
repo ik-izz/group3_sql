@@ -16,6 +16,9 @@ export async function getUser(reqBody) {
     console.log(reqBody.password)
     const email = reqBody.email;
     const password = reqBody.password
+
+    console.log(typeof(email))
+    console.log(typeof(password))
 //     const query = 
 //     `SELECT 
 //         u.fname, u.lname, u.email, u._password, u.ssn
@@ -28,13 +31,16 @@ export async function getUser(reqBody) {
 //     const [rows] = await pool.query(query,[email]); 
 
     const [rows] = await pool.query(
-        `SELECT 
-           u.fname, u.lname, u.email, u._password, u.ssn
-       FROM 
-           sqli.users as u
-       WHERE 
-           email = '${email}`
-        ); 
+        `
+        SELECT 
+            u.fname, u.lname, u.email, u._password, u.ssn
+        FROM 
+            sqli.users as u
+        WHERE 
+            email = '${email}'
+         AND 
+            _password = '${password}';
+        `);  
     console.log(rows)
     return rows; 
 }
