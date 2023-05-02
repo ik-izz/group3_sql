@@ -4,6 +4,8 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
 
+import {getUser} from './database.js';
+
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -16,7 +18,10 @@ app.get('/', async (req,res) => {
 })
 
 app.post('/submit', async (req,res) => {
-    console.log(req.body)
+    console.log(req.body);
+    const user = await getUser(req.body);
+    // console.log(user)
+    res.send(user)
     // res.send(path.join("hello"))
 })
  
