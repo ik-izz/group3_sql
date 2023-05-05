@@ -1,5 +1,6 @@
 import mysql from 'mysql2';
 import dotenv from 'dotenv';
+import crypto from 'crypto';
 
 dotenv.config()
 
@@ -15,7 +16,7 @@ export async function getUser(reqBody) {
     console.log(reqBody.email)
     console.log(reqBody.password)
     const email = reqBody.email;
-    const password = reqBody.password
+    const password = crypto.createHash('sha512').update(reqBody.password).digest('hex');
 
     console.log(typeof(email))
     console.log(typeof(password))
