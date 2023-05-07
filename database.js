@@ -29,17 +29,19 @@ export async function getUser(reqBody) {
 //     const [rows] = await pool.query(query,[email,password]); 
 
     // Query with vulnerability 
-    const [rows] = await pool.query(
-        `
-        SELECT 
-            u.fname, u.lname, u.email, u._password, u.ssn
-        FROM 
-            sqli.users as u
-        WHERE 
-            email = '${email}'
-         AND 
-            _password = '${password}';
-        `);  
+    const query =
+    `
+    SELECT 
+        u.fname, u.lname, u.email, u._password, u.ssn
+    FROM 
+        sqli.users as u
+    WHERE 
+        email = '${email}'
+     AND 
+        _password = '${password}';
+    `
+    console.log(query)
+    const [rows] = await pool.query(query);  
     console.log(rows)
     return rows; 
 }
